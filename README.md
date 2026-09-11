@@ -4,6 +4,13 @@
 Try the application online:
 
 [Open Todo App](https://saeed-motevalli.github.io/todo-app/)
+
+## 📱 Android App
+
+The Android version is available as a release APK.
+
+[Download Android APK](https://github.com/Saeed-Motevalli/todo-app/releases/tag/v1.0.0)
+
 <p align="center">
   <img src="screenshots/light-mode.png" width="700">
 </p>
