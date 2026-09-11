@@ -1,5 +1,9 @@
 # Todo App
+## 🌐 Live Demo
 
+Try the application online:
+
+[Open Todo App](https://saeed-motevalli.github.io/todo-app/)
 <p align="center">
   <img src="screenshots/light-mode.png" width="700">
 </p>
