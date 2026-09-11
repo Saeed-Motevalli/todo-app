@@ -155,7 +155,7 @@ Todo-App/
 ## Clone the repository
 
 ```bash
-git clone YOUR_REPOSITORY_URL
+git clone https://github.com/Saeed-Motevalli/todo-app.git
 ```
 
 ## Run Web Version
