@@ -1,0 +1,993 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="A modern and minimal Todo List application."
+    />
+
+    <title>Todo</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+    />
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href=".\img\logo.png" />
+  </head>
+
+  <body>
+    <div id="splash-screen">
+      <img src=".\assets\logo.png" alt="Todo Logo" />
+    </div>
+    <!-- =====================================================
+         APP
+    ====================================================== -->
+
+    <main class="app">
+      <!-- =================================================
+             TODO CARD
+        ================================================== -->
+
+      <section class="todo-card" aria-label="Todo application">
+        <!-- =============================================
+                 HEADER
+            ============================================== -->
+
+        <header class="todo-header">
+          <div class="brand">
+            <h1 class="app-title">Todo✨</h1>
+            <p class="app-subtitle">Get things done. I believe in you ♡</p>
+          </div>
+
+          <!-- Theme Toggle -->
+          <button
+            type="button"
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Switch to dark mode"
+            aria-pressed="false"
+          >
+            <i class="fa-solid fa-moon" aria-hidden="true"></i>
+          </button>
+        </header>
+
+        <!-- =============================================
+                 TOOLBAR
+            ============================================== -->
+
+        <section class="toolbar" aria-label="Task controls">
+          <!-- Search -->
+          <div class="search-wrapper">
+            <i
+              class="fa-solid fa-magnifying-glass search-icon"
+              aria-hidden="true"
+            ></i>
+
+            <label class="sr-only" for="searchInput"> Search tasks </label>
+
+            <input
+              type="search"
+              id="searchInput"
+              class="search-input"
+              placeholder="Search tasks..."
+              autocomplete="off"
+            />
+
+            <button
+              type="button"
+              class="clear-search"
+              id="clearSearch"
+              aria-label="Clear search"
+              hidden
+            >
+              <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <!-- Filter -->
+          <div class="dropdown-wrapper">
+            <button
+              type="button"
+              class="toolbar-button filter-button"
+              id="filterButton"
+              aria-expanded="false"
+              aria-controls="filterPanel"
+            >
+              <i class="fa-solid fa-filter" aria-hidden="true"></i>
+
+              <span>Filter</span>
+
+              <span
+                class="filter-indicator"
+                id="filterIndicator"
+                hidden
+                aria-label="Filters are active"
+              ></span>
+
+              <i
+                class="fa-solid fa-chevron-down dropdown-arrow"
+                aria-hidden="true"
+              ></i>
+            </button>
+
+            <!-- Filter Panel -->
+            <div class="dropdown-panel filter-panel" id="filterPanel" hidden>
+              <div class="dropdown-panel-header">
+                <h3>Filter tasks</h3>
+
+                <button
+                  type="button"
+                  class="panel-close"
+                  data-close-dropdown
+                  aria-label="Close filter"
+                >
+                  <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+              </div>
+
+              <!-- Status Filter -->
+              <div class="filter-group">
+                <label for="statusFilter"> Status </label>
+
+                <div class="custom-select-wrapper">
+                  <button
+                    type="button"
+                    class="custom-select-trigger"
+                    id="statusFilter"
+                    data-filter="status"
+                    aria-expanded="false"
+                  >
+                    <span>All</span>
+
+                    <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                  </button>
+
+                  <div class="custom-select-menu" data-menu="status" hidden>
+                    <button
+                      type="button"
+                      class="custom-option active"
+                      data-value="all"
+                      data-filter-status="all"
+                    >
+                      All
+                    </button>
+
+                    <button
+                      type="button"
+                      class="custom-option"
+                      data-value="active"
+                      data-filter-status="active"
+                    >
+                      Active
+                    </button>
+
+                    <button
+                      type="button"
+                      class="custom-option"
+                      data-value="completed"
+                      data-filter-status="completed"
+                    >
+                      Completed
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Priority Filter -->
+              <div class="filter-group">
+                <label for="priorityFilter"> Priority </label>
+
+                <div class="custom-select-wrapper">
+                  <button
+                    type="button"
+                    class="custom-select-trigger"
+                    id="priorityFilter"
+                    data-filter="priority"
+                    aria-expanded="false"
+                  >
+                    <span>All</span>
+
+                    <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                  </button>
+
+                  <div class="custom-select-menu" data-menu="priority" hidden>
+                    <button
+                      type="button"
+                      class="custom-option active"
+                      data-value="all"
+                      data-filter-priority="all"
+                    >
+                      All
+                    </button>
+
+                    <button
+                      type="button"
+                      class="custom-option"
+                      data-value="high"
+                      data-filter-priority="high"
+                    >
+                      <span class="priority-dot high"></span>
+                      High
+                    </button>
+
+                    <button
+                      type="button"
+                      class="custom-option"
+                      data-value="medium"
+                      data-filter-priority="medium"
+                    >
+                      <span class="priority-dot medium"></span>
+                      Medium
+                    </button>
+
+                    <button
+                      type="button"
+                      class="custom-option"
+                      data-value="low"
+                      data-filter-priority="low"
+                    >
+                      <span class="priority-dot low"></span>
+                      Low
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Category Filter -->
+              <div class="filter-group">
+                <label for="categoryFilter"> Category </label>
+
+                <div class="custom-select-wrapper">
+                  <button
+                    type="button"
+                    class="custom-select-trigger"
+                    id="categoryFilter"
+                    data-filter="category"
+                    aria-expanded="false"
+                  >
+                    <span>All</span>
+
+                    <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                  </button>
+
+                  <div class="custom-select-menu" data-menu="category" hidden>
+                    <button
+                      type="button"
+                      class="custom-option active"
+                      data-value="all"
+                      data-filter-category="all"
+                    >
+                      All
+                    </button>
+
+                    <button
+                      type="button"
+                      class="custom-option"
+                      data-value="personal"
+                      data-filter-category="personal"
+                    >
+                      <i class="fa-regular fa-user" aria-hidden="true"></i>
+                      Personal
+                    </button>
+
+                    <button
+                      type="button"
+                      class="custom-option"
+                      data-value="work"
+                      data-filter-category="work"
+                    >
+                      <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
+                      Work
+                    </button>
+
+                    <button
+                      type="button"
+                      class="custom-option"
+                      data-value="study"
+                      data-filter-category="study"
+                    >
+                      <i class="fa-solid fa-book" aria-hidden="true"></i>
+                      Study
+                    </button>
+
+                    <button
+                      type="button"
+                      class="custom-option"
+                      data-value="shopping"
+                      data-filter-category="shopping"
+                    >
+                      <i
+                        class="fa-solid fa-cart-shopping"
+                        aria-hidden="true"
+                      ></i>
+                      Shopping
+                    </button>
+
+                    <button
+                      type="button"
+                      class="custom-option"
+                      data-value="health"
+                      data-filter-category="health"
+                    >
+                      <i class="fa-solid fa-heart" aria-hidden="true"></i>
+                      Health
+                    </button>
+
+                    <button
+                      type="button"
+                      class="custom-option"
+                      data-value="sports"
+                      data-filter-category="sports"
+                    >
+                      <i class="fa-solid fa-dumbbell" aria-hidden="true"></i>
+                      Sports
+                    </button>
+
+                    <button
+                      type="button"
+                      class="custom-option"
+                      data-value="other"
+                      data-filter-category="other"
+                    >
+                      <i class="fa-solid fa-tag" aria-hidden="true"></i>
+                      Other
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Reset Filters -->
+              <button type="button" class="reset-filters" id="resetFilters">
+                <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+
+                Reset filters
+              </button>
+            </div>
+          </div>
+
+          <!-- Sort -->
+          <div class="dropdown-wrapper">
+            <button
+              type="button"
+              class="toolbar-button sort-button"
+              id="sortButton"
+              aria-expanded="false"
+              aria-controls="sortPanel"
+            >
+              <i
+                class="fa-solid fa-arrow-down-wide-short"
+                aria-hidden="true"
+              ></i>
+
+              <span>
+                Sort:
+                <span id="currentSort">Priority</span>
+              </span>
+
+              <i
+                class="fa-solid fa-chevron-down dropdown-arrow"
+                aria-hidden="true"
+              ></i>
+            </button>
+
+            <!-- Sort Panel -->
+            <div class="dropdown-panel sort-panel" id="sortPanel" hidden>
+              <div class="dropdown-panel-header">
+                <h3>Sort tasks</h3>
+
+                <button
+                  type="button"
+                  class="panel-close"
+                  data-close-dropdown
+                  aria-label="Close sort menu"
+                >
+                  <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+              </div>
+
+              <div
+                class="sort-options"
+                role="radiogroup"
+                aria-label="Sort tasks"
+              >
+                <button
+                  type="button"
+                  class="sort-option active"
+                  data-sort="priority"
+                  role="radio"
+                  aria-checked="true"
+                >
+                  <span>Priority</span>
+
+                  <i class="fa-solid fa-check" aria-hidden="true"></i>
+                </button>
+
+                <button
+                  type="button"
+                  class="sort-option"
+                  data-sort="deadline"
+                  role="radio"
+                  aria-checked="false"
+                >
+                  <span>Deadline</span>
+
+                  <i class="fa-solid fa-check" aria-hidden="true"></i>
+                </button>
+
+                <button
+                  type="button"
+                  class="sort-option"
+                  data-sort="created"
+                  role="radio"
+                  aria-checked="false"
+                >
+                  <span>Created Date</span>
+
+                  <i class="fa-solid fa-check" aria-hidden="true"></i>
+                </button>
+
+                <button
+                  type="button"
+                  class="sort-option"
+                  data-sort="alphabetical"
+                  role="radio"
+                  aria-checked="false"
+                >
+                  <span>Alphabetical</span>
+
+                  <i class="fa-solid fa-check" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =============================================
+                 TASK SUMMARY
+            ============================================== -->
+
+        <div class="task-summary" aria-live="polite">
+          <span id="taskCount"> 0 Tasks </span>
+
+          <span class="summary-separator" aria-hidden="true"> · </span>
+
+          <span id="completedCount"> 0 Completed </span>
+        </div>
+
+        <!-- =============================================
+                 TASK CONTENT
+            ============================================== -->
+
+        <div class="tasks-container" id="tasksContainer">
+          <!-- =========================================
+                     ACTIVE TASKS
+                ========================================== -->
+
+          <section class="task-section active-tasks" id="activeTasksSection">
+            <h2 class="section-title">Active Tasks</h2>
+
+            <div class="task-list" id="activeTaskList">
+              <!-- Tasks generated by JavaScript -->
+            </div>
+          </section>
+
+          <!-- =========================================
+                     COMPLETED TASKS
+                ========================================== -->
+
+          <section
+            class="task-section completed-tasks"
+            id="completedTasksSection"
+            hidden
+          >
+            <h2 class="section-title">Completed Tasks</h2>
+
+            <div class="task-list" id="completedTaskList">
+              <!-- Tasks generated by JavaScript -->
+            </div>
+          </section>
+
+          <!-- =========================================
+                     NO TASKS FOUND
+                ========================================== -->
+
+          <div class="no-results" id="noResults" hidden>
+            <p>No tasks found</p>
+          </div>
+
+          <!-- =========================================
+                     EMPTY STATE
+                ========================================== -->
+
+          <div class="empty-state" id="emptyState" hidden>
+            <div class="empty-state-icon">
+              <i class="fa-solid fa-check" aria-hidden="true"></i>
+            </div>
+
+            <h2>No tasks yet</h2>
+
+            <p>Create your first task and start getting things done.</p>
+          </div>
+
+          <!-- =========================================
+                     ALL COMPLETED STATE
+                ========================================== -->
+
+          <div class="all-completed-state" id="allCompletedState" hidden>
+            <div class="empty-state-icon">
+              <i class="fa-solid fa-check-double" aria-hidden="true"></i>
+            </div>
+
+            <h2>All tasks completed!</h2>
+
+            <p>Great job! You have nothing left to do.</p>
+          </div>
+        </div>
+
+        <!-- =============================================
+                 ADD TASK BUTTON
+            ============================================== -->
+
+        <button type="button" class="add-task-button" id="addTaskButton">
+          <i class="fa-solid fa-plus" aria-hidden="true"></i>
+
+          <span>Add Task</span>
+        </button>
+      </section>
+    </main>
+
+    <!-- =====================================================
+         ADD / EDIT TASK MODAL
+    ====================================================== -->
+
+    <div class="modal-overlay" id="taskModalOverlay" hidden>
+      <section
+        class="modal task-modal"
+        id="taskModal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="taskModalTitle"
+        tabindex="-1"
+      >
+        <!-- Modal Header -->
+        <header class="modal-header">
+          <div>
+            <h2 id="taskModalTitle">Add New Task</h2>
+
+            <p class="modal-subtitle">
+              Create a task and keep things organized.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            class="modal-close"
+            id="taskModalClose"
+            aria-label="Close task form"
+          >
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </header>
+
+        <!-- Task Form -->
+        <form class="task-form" id="taskForm" novalidate>
+          <!-- Title -->
+          <div class="form-group">
+            <label for="taskTitle">
+              Title
+              <span class="required-mark" aria-hidden="true"> * </span>
+            </label>
+
+            <input
+              type="text"
+              id="taskTitle"
+              name="title"
+              class="form-input"
+              placeholder="Enter task title..."
+              maxlength="100"
+              autocomplete="off"
+              required
+            />
+
+            <p class="field-error" id="titleError" role="alert" hidden>
+              Task title is required
+            </p>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <label for="taskDescription"> Description </label>
+
+            <textarea
+              id="taskDescription"
+              name="description"
+              class="form-textarea"
+              placeholder="Add a description..."
+              maxlength="500"
+              rows="3"
+            ></textarea>
+          </div>
+
+          <!-- Category -->
+          <div class="form-group">
+            <label>
+              Category
+              <span class="required-mark" aria-hidden="true"> * </span>
+            </label>
+
+            <div class="form-custom-select">
+              <button
+                type="button"
+                class="form-select-trigger"
+                id="taskCategoryTrigger"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+              >
+                <span id="selectedCategory" class="placeholder">
+                  Select category
+                </span>
+
+                <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+              </button>
+
+              <div
+                class="form-select-menu"
+                id="taskCategoryMenu"
+                role="listbox"
+                hidden
+              >
+                <button
+                  type="button"
+                  class="form-select-option"
+                  data-category="personal"
+                  role="option"
+                >
+                  <i class="fa-regular fa-user" aria-hidden="true"></i>
+
+                  <span>Personal</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="form-select-option"
+                  data-category="work"
+                  role="option"
+                >
+                  <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
+
+                  <span>Work</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="form-select-option"
+                  data-category="study"
+                  role="option"
+                >
+                  <i class="fa-solid fa-book" aria-hidden="true"></i>
+
+                  <span>Study</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="form-select-option"
+                  data-category="shopping"
+                  role="option"
+                >
+                  <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+
+                  <span>Shopping</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="form-select-option"
+                  data-category="health"
+                  role="option"
+                >
+                  <i class="fa-solid fa-heart" aria-hidden="true"></i>
+
+                  <span>Health</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="form-select-option"
+                  data-category="sports"
+                  role="option"
+                >
+                  <i class="fa-solid fa-dumbbell" aria-hidden="true"></i>
+
+                  <span>Sports</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="form-select-option"
+                  data-category="other"
+                  role="option"
+                >
+                  <i class="fa-solid fa-tag" aria-hidden="true"></i>
+
+                  <span>Other</span>
+                </button>
+              </div>
+            </div>
+
+            <p class="field-error" id="categoryError" role="alert" hidden>
+              Please select a category
+            </p>
+          </div>
+
+          <!-- Priority -->
+          <div class="form-group">
+            <label> Priority </label>
+
+            <div class="form-custom-select">
+              <button
+                type="button"
+                class="form-select-trigger"
+                id="taskPriorityTrigger"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+              >
+                <span id="selectedPriority"> Medium </span>
+
+                <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+              </button>
+
+              <div
+                class="form-select-menu"
+                id="taskPriorityMenu"
+                role="listbox"
+                hidden
+              >
+                <button
+                  type="button"
+                  class="form-select-option"
+                  data-priority="high"
+                  role="option"
+                >
+                  <span class="priority-dot high"></span>
+                  <span>High</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="form-select-option active"
+                  data-priority="medium"
+                  role="option"
+                >
+                  <span class="priority-dot medium"></span>
+                  <span>Medium</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="form-select-option"
+                  data-priority="low"
+                  role="option"
+                >
+                  <span class="priority-dot low"></span>
+                  <span>Low</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Due Date -->
+          <div class="form-group">
+            <label for="taskDueDate"> Due Date </label>
+
+            <div class="date-picker-wrapper">
+              <button
+                type="button"
+                class="date-input"
+                id="taskDueDate"
+                aria-expanded="false"
+                aria-haspopup="dialog"
+              >
+                <span id="selectedDueDate" class="placeholder">
+                  Select date
+                </span>
+
+                <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+              </button>
+
+              <!-- =================================
+                             JALALI CALENDAR
+                        ================================== -->
+
+              <div
+                class="calendar"
+                id="calendar"
+                role="dialog"
+                aria-label="Select due date"
+                hidden
+              >
+                <!-- Calendar Header -->
+                <div class="calendar-header">
+                  <button
+                    type="button"
+                    class="calendar-nav"
+                    id="previousMonth"
+                    aria-label="Previous month"
+                  >
+                    <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                  </button>
+
+                  <button
+                    type="button"
+                    class="calendar-month-year"
+                    id="calendarMonthYear"
+                    aria-label="Current month"
+                  >
+                    <span class="calendar-month">August</span>
+                    <span class="calendar-year">1405</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    class="calendar-nav"
+                    id="nextMonth"
+                    aria-label="Next month"
+                  >
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                  </button>
+                </div>
+
+                <!-- Week Days -->
+                <div class="calendar-weekdays" role="row">
+                  <span>Sat</span>
+                  <span>Sun</span>
+                  <span>Mon</span>
+                  <span>Tue</span>
+                  <span>Wed</span>
+                  <span>Thu</span>
+                  <span>Fri</span>
+                </div>
+
+                <!-- Calendar Days -->
+                <div
+                  class="calendar-days"
+                  id="calendarDays"
+                  role="grid"
+                  aria-label="Calendar days"
+                >
+                  <!-- Generated by JavaScript -->
+                </div>
+
+                <!-- Clear Date -->
+                <button type="button" class="clear-date" id="clearDate">
+                  <i
+                    class="fa-regular fa-calendar-xmark"
+                    aria-hidden="true"
+                  ></i>
+
+                  Clear date
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="form-actions">
+            <button
+              type="button"
+              class="button button-ghost"
+              id="cancelTaskButton"
+            >
+              Cancel
+            </button>
+
+            <button
+              type="submit"
+              class="button button-primary"
+              id="submitTaskButton"
+            >
+              <i class="fa-solid fa-plus" aria-hidden="true"></i>
+
+              <span id="submitTaskText"> Add Task </span>
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <!-- =====================================================
+         DELETE CONFIRMATION MODAL
+    ====================================================== -->
+
+    <div class="modal-overlay" id="deleteModalOverlay" hidden>
+      <section
+        class="modal delete-modal"
+        id="deleteModal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="deleteModalTitle"
+        tabindex="-1"
+      >
+        <div class="delete-icon">
+          <i class="fa-solid fa-trash" aria-hidden="true"></i>
+        </div>
+
+        <div class="delete-content">
+          <h2 id="deleteModalTitle">Delete Task?</h2>
+
+          <p>
+            Are you sure you want to delete
+            <strong id="deleteTaskName"> this task </strong>?
+          </p>
+
+          <p class="delete-warning">
+            You can undo this action for a few seconds.
+          </p>
+        </div>
+
+        <div class="modal-actions">
+          <button
+            type="button"
+            class="button button-ghost"
+            id="cancelDeleteButton"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="button"
+            class="button button-danger"
+            id="confirmDeleteButton"
+          >
+            <i class="fa-solid fa-trash" aria-hidden="true"></i>
+
+            Delete
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- =====================================================
+         TOAST
+    ====================================================== -->
+
+    <div
+      class="toast-container"
+      id="toastContainer"
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      <!-- Toast generated by JavaScript -->
+    </div>
+
+    <!-- =====================================================
+         SCREEN READER UTILITY
+    ====================================================== -->
+
+    <div
+      id="liveRegion"
+      class="sr-only"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+
+    <!-- Main JavaScript -->
+    <script src="js/app.js"></script>
+  </body>
+</html>
